@@ -1,0 +1,104 @@
+:root {
+  font-size: 10px;
+  --dark-gray: #222222;
+  --brand-green: #00cc6d;
+  --green: #00ff00;
+  --brand-red: #fd4747;
+  --bg-green: #f4fbf6;
+  --bg-red: #fff0f0;
+  --mid-gray: #8f8f8f;
+  --line-gray: #f5f5f5;
+  --light-gray: #c8c8c8;
+  --bg-gray: #f6f6f6;
+}
+
+.regular-form h3 {
+  font: 1.6rem "medium";
+  color: var(--light-gray);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.regular-form section {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-green);
+  border-radius: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.regular-form .button {
+  background-color: var(--brand-green);
+  padding: 1rem 1.5rem;
+  color: white;
+  font: 1.5rem "bold";
+  border-radius: 0.8rem;
+  appearance: none;
+  border: none;
+  outline: none;
+  transition: 0.3s all ease-out;
+  cursor: pointer;
+}
+
+.regular-form .button:hover {
+  background-color: var(--dark-gray);
+}
+
+.regular-form .form-input {
+  background-color: var(--bg-green);
+  appearance: none;
+  border: none;
+  outline: none;
+  color: var(--brand-green);
+  font: 1.6rem "medium";
+  width: 100%;
+  margin-left: 1.2rem;
+}
+
+.regular-form .form-input::placeholder {
+  color: var(--brand-green);
+  font: 1.6rem "medium";
+}
+
+.regular-form {
+  margin-top: 3rem;
+}
+
+.form-response {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+}
+
+.form-response.error {
+  color: var(--brand-red);
+}
+
+.form-response.success {
+  color: var(--brand-green);
+}
+
+.form-response.success span {
+  display: block;
+  margin-right: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  background-image: url(../images/green-seen.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.form-response.error span {
+  display: block;
+  margin-right: 0.5rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  transform: translateY(3px);
+  background-image: url(../images/red-info.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}

@@ -1,0 +1,128 @@
+:root {
+  font-size: 10px;
+  --dark-gray: #222222;
+  --brand-green: #00cc6d;
+  --green: #00ff00;
+  --brand-red: #fd4747;
+  --bg-green: #f4fbf6;
+  --bg-red: #fff0f0;
+  --mid-gray: #8f8f8f;
+  --line-gray: #f5f5f5;
+  --light-gray: #c8c8c8;
+  --bg-gray: #f6f6f6;
+}
+
+@font-face {
+  font-family: "black";
+  src: url(../fonts/Inter-Black.ttf);
+}
+@font-face {
+  font-family: "bold";
+  src: url(../fonts/Inter-Bold.ttf);
+}
+@font-face {
+  font-family: "medium";
+  src: url(../fonts/Inter-Medium.ttf);
+}
+@font-face {
+  font-family: "regular";
+  src: url(../fonts/Inter-Regular.ttf);
+}
+
+* {
+  font: 1.6rem "regular";
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-feature-settings: normal;
+  -webkit-text-size-adjust: 100%;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+}
+
+.page-flx {
+  /* display: flex; */
+  /* justify-content: space-between; */
+}
+
+.page-wide {
+  /* flex: 0 0 70%; */
+  /*   
+  margin: auto;
+  margin-top: 10rem; */
+  position: absolute;
+  width: 60%;
+  right: 0;
+  transform: translateX(-18%);
+  margin-top: 10rem;
+  padding-bottom: 10rem;
+}
+
+.back-button-flx {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5rem;
+}
+
+.back-button-flx .back-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+
+.back-button-flx .back-button div {
+  width: 1.4rem;
+  height: 1.4rem;
+  background-image: url(../images/left-dark-chev.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-right: 0.7rem;
+}
+
+.back-button-flx a {
+  color: var(--dark-gray);
+}
+
+.back-button-flx .button {
+  background-color: var(--bg-green);
+  color: var(--brand-green);
+  text-align: center;
+  border-radius: 0.8rem;
+  padding: 1.2rem 2rem;
+  transition: 0.3s all ease-out;
+  cursor: pointer;
+  font: 1.6rem "medium";
+  border: 1px solid var(--brand-green);
+}
+
+.back-button-flx .button:hover {
+  background-color: var(--brand-green);
+  color: white;
+}
+
+.page-wide h1 {
+  font: 4rem "black";
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--dark-gray);
+  text-transform: uppercase;
+}
+
+.page-wide h2 {
+  font: 1.8rem "medium";
+  color: var(--light-gray);
+  margin-bottom: 6rem;
+  text-align: center;
+}
+
+.middle-title {
+  font: 3rem "medium";
+  margin-bottom: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+}
