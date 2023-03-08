@@ -4,9 +4,6 @@ import ReportItem from "../components/report-row";
 import { useHistory, useParams, Link } from "react-router-dom";
 import moment from "moment";
 
-
-
-
 // This is the main page that displays the general list of hospitals.
 function MainPage(props) {
   const history = useHistory();
@@ -14,9 +11,12 @@ function MainPage(props) {
   const [agents, setAgents] = useState([]);
   const [facilityInfo, setFacilityInfo] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [readyDownload, setReadyDownload] = useState(false);
+  const [generatingPDF, setGeneratingPDF] = useState(false);
+  const [downloadLink, setDownloadLink] = useState("");
   const [error, setError] = useState(null);
 
-
+  let facilityId = localStorage.getItem("facilityId");
 
   // With this function, you can get the general information of selected hospital
   async function FetchFacility() {
@@ -24,7 +24,7 @@ function MainPage(props) {
     setIsLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:8080/getFacilityInfo/" + props.selectedFacility
+        "http://localhost:8080/getFacilityInfo/" + facilityId
       );
 
       if (!response.ok) {
@@ -48,7 +48,7 @@ function MainPage(props) {
     setIsLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:8080/getFacilityAgents/" + props.selectedFacility
+        "http://localhost:8080/getFacilityAgents/" + facilityId
       );
 
       if (!response.ok) {
@@ -72,7 +72,7 @@ function MainPage(props) {
     setIsLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:8080/getFacilityShifts/" + props.selectedFacility
+        "http://localhost:8080/getFacilityShifts/" + facilityId
       );
 
       if (!response.ok) {
@@ -93,7 +93,10 @@ function MainPage(props) {
     FetchShifts();
     FetchFacility();
     FetchAgents();
-  }, [props.selectedFacility]);
+    setDownloadLink("");
+    setGeneratingPDF(false);
+    setReadyDownload(false);
+  }, [facilityId]);
 
   if (isLoading) {
     return (
@@ -110,6 +113,26 @@ function MainPage(props) {
     currency: "USD",
   });
 
+  // This function generates report for all shifts of this facility
+  async function getAllShiftsReport() {
+    setGeneratingPDF(true);
+    try {
+      const response = await fetch(
+        "http://localhost:8080/generateShiftsReport/" + facilityId
+      );
+
+      const data = await response.json();
+      if (data.file !== "") {
+        setReadyDownload(true);
+        setDownloadLink(data.file);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+    setGeneratingPDF(false);
+  }
+
   return (
     <>
       <div className="page-flx">
@@ -117,6 +140,35 @@ function MainPage(props) {
           <div className="page-wide">
             <h1>Summer 2023 Report</h1>
             <h2>For {facilityInfo?.name}</h2>
+
+            <div
+              className="back-button-flx"
+              style={{ justifyContent: "center" }}
+            >
+              {generatingPDF === true ? (
+                <div style={{ margin: "auto", textAlign: "center" }}>
+                  <div className="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                </div>
+              ) : readyDownload === false ? (
+                <div className="button" onClick={getAllShiftsReport}>
+                  Generate Shifts Invoice
+                </div>
+              ) : (
+                <a
+                  className="button"
+                  target="_blank"
+                  href={downloadLink}
+                  download
+                >
+                  Download Shifts Invoice
+                </a>
+              )}
+            </div>
 
             <h3 className="middle-title">This Quarter Agents</h3>
             <div className="table">
@@ -138,13 +190,13 @@ function MainPage(props) {
                           backgroundImage: `url(http://localhost:8080/uploads/agent/${agent.image})`,
                         }}
                       ></span>
-                      {agent.fullName}
+                      {agent.name}
                     </div>
                     <div>{agent.location}</div>
                     <div>{agent.customId}</div>
-                    <div style={{ flex: "0 0 12%" }}>{agent.customId}</div>
-                    <div>{formatter.format(900)}</div>
-                    <Link className="button" to={`/report/${agent._id}`}>
+                    <div style={{ flex: "0 0 12%" }}>{agent.shifts}</div>
+                    <div>{formatter.format(agent.totalIncome)}</div>
+                    <Link className="button" to={`/report/${agent.id}`}>
                       <span>See Details</span>
                     </Link>
                   </div>

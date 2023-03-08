@@ -13,19 +13,19 @@
 }
 
 .regular-form h3 {
-  font: 1.6rem "medium";
-  color: var(--light-gray);
+  font: 1.8rem "medium";
+  color: var(--dark-gray);
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .regular-form section {
-  padding: 1.5rem;
+  padding: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: var(--bg-green);
-  border-radius: 0.8rem;
+  border-radius: 1rem;
   margin-bottom: 0.5rem;
 }
 
